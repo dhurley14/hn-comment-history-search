@@ -15,7 +15,7 @@ introduction...
 
 ## SECRETS
 Secrets, secrets are no fun unless you share with everyone.  In order to access the comments
-that you have upvoted, you will need your `__cfduid`, `user` and `_ga`. 
+that you have upvoted (i.e. this link , you will need your `__cfduid`, `user` and `_ga`. 
 You can access these via your cookies in your browser.  Go to news.ycombinator.com and sign in, 
 then check your cookies for HN and you should see these two profiles there.
 Save those into a file called `SECRETS.txt` (see `SAMPLE-SECRETS.txt`).
@@ -27,6 +27,9 @@ writes them (via cPickle) to a file `temp_output.txt` in this directory.
 ## ElasticSearch 
 Once you have ran the `get_saved_comments.py` script you will need to start elasticsearch.
 Make sure you have [downloaded elasticsearch](https://www.elastic.co/downloads/elasticsearch).
+
+I used elasticsearch-1.4.4 so if there are any issues uploading the data, let me know or 
+make a pull request (?). 
 
 Once the download is complete, `cd` into the elasticsearch directory then proceed with `./bin/elasticsearch`.  
 This will begin the elasticsearch server.  Then run `elastic_uploader.py` to upload the pickled
