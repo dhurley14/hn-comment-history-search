@@ -17,10 +17,10 @@ from bs4 import BeautifulSoup
 __CFDUID = ''
 _GA = ''
 USER = '' # used for authentication
-SECRETS_PATH = ''
+SECRETS_PATH = 'SECRETS.txt'
 USERNAME = '' # used in url GET params
 
-with open(''.join([SECRETS_PATH, 'SECRETS.txt']), 'r+b') as secrets_file:
+with open(SECRETS_PATH, 'r+b') as secrets_file:
     __CFDUID, _GA, USER = secrets_file.read().splitlines()
 
 COOKIE_STR = ''.join([__CFDUID, _GA, USER])
@@ -103,7 +103,7 @@ if __name__ == '__main__':
         to download, defaults to 10 (one)',
                         required=False)
     parser.add_argument('-u', '--username', help='your username', required=True)
-    parser.add_argument('-s', '--secrets-file', help='path to the SECRETS.txt file', required=False)
+    parser.add_argument('-s', '--secrets-file', help='path to the SECRETS.txt file, i.e. `~/Desktop/SECRETS.txt`', required=False)
     parser.add_argument('-e', '--sleep', help='number of seconds to sleep before requesting next \
     comment page this is the nice thing to do on the net..', required=False)
 
@@ -113,7 +113,7 @@ if __name__ == '__main__':
     NUM_PAGES = 10
     SLEEP_SECONDS = 2.0
     if args['secrets_file'] is not None:
-        SECRETS_PATH = args['secrets-file']
+        SECRETS_PATH = str(args['secrets_file'])
     if args['number'] is not None:
         print 'found number in args'
         NUM_PAGES = int(args['number'])
