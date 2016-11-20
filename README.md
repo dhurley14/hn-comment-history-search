@@ -14,8 +14,8 @@ and hopefully someone out there will find this useful.  So without further
 introduction...
 
 ## SECRETS
-Secrets, secrets are no fun unless you share with everyone.  In order to access your 
-saved comments (upvoted, w/e they are called now) you will need your `__cfduid`, `user` and `_ga`. 
+Secrets, secrets are no fun unless you share with everyone.  In order to access the comments
+that you have upvoted, you will need your `__cfduid`, `user` and `_ga`. 
 You can access these via your cookies in your browser.  Go to news.ycombinator.com and sign in, 
 then check your cookies for HN and you should see these two profiles there.
 Save those into a file called `SECRETS.txt` (see `SAMPLE-SECRETS.txt`).
