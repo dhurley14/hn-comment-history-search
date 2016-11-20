@@ -1,5 +1,5 @@
 """
-temp docstring
+Upload the data stored in temp_output.txt into elasticsearch
 """
 
 import cPickle as pickle
@@ -22,29 +22,3 @@ for item in ITEMS:
         print MY_INDEX
         ES.index(index='saved_comments', doc_type='comment', id=MY_INDEX, body=obj)
         MY_INDEX += 1
-
-""" sampe query
-curl -XGET 'http://localhost:9200/posts/blog/_search?pretty' -d '{ "query" : { "term" : {"author" : "santa" } } }'
-
-better sample query...
-curl -XGET 'http://localhost:9200/saved_comments/comment/_search?pretty' -d '{
-    "query": {
-        "prefix": {
-            "comment_author": "patio11"
-        }
-    }
-}'
-
-or something even cooler...
-
-curl -XGET 'http://localhost:9200/saved_comments/comment/_search?pretty&search_type=count' -d '{
-    "aggs": {
-        "labels": { 
-            "terms" : {
-                "field": "comment_author"
-                }
-            }
-        }
-    }'
-
-"""

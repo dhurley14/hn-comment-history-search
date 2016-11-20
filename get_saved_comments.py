@@ -1,5 +1,6 @@
 """
-temp docstring
+Download the signed-in user's upvoted comments
+and save them to a text file!
 """
 
 import cPickle as pickle
@@ -45,16 +46,14 @@ URL = "https://news.ycombinator.com/upvoted?"
 
 # create the requests
 def requester(page=1):
-    """ some docstring"""
+    """ download a page of comments from the signed in user's upvoted comments page'"""
     resonse_obj = requests.get(
         URL,
         params={'id':USERNAME, 'comments':'t', 'p':page},
         headers=REQUEST_HEADERS
         )
-    #print response_obj.text
-    soup = BeautifulSoup(resonse_obj.text.encode('utf-8', 'ignore'), 'html.parser')
 
-    #print(soup.get_text())
+    soup = BeautifulSoup(resonse_obj.text.encode('utf-8', 'ignore'), 'html.parser')
     comments = soup.find_all('span', 'c00')
     comment_headers = soup.find_all('span', 'comhead')
     ages = soup.find_all('span', 'age')
@@ -64,11 +63,6 @@ def requester(page=1):
     print len(comment_headers)
     print len(ages)
     print len(story_titles)
-
-    #for comment in comments:
-        #comment_string = unicode(str(comment.text).strip(codecs.BOM_UTF8), 'ascii')
-        #print "comment text --> {0}\n\n".format(comment.text)
-        #print comment.text
 
     items = []
 
@@ -91,16 +85,10 @@ def requester(page=1):
     #print items
     return items
 
-    print '\n\n\n\n******************\n', items[3]['comment'], '\n\n\n****************'
-
-    for comhead in comment_headers:
-        comment_author = comhead.a.text
-        comment_author_url = comhead.a.get('href')
-        #print comment_author_url
-        #print comment_author
-        #print comhead.text
 
 def write_to_file(items, output_file_name='temp_output.txt'):
+    """write the scraped data to our output file, we will use this
+    output file as the source to upload data into elasticsearch """
     statinfo = os.stat(output_file_name)
     print 'prior file size.. ', statinfo.st_size
     with open(output_file_name, 'a+b') as writefile:
@@ -112,7 +100,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Download the user with the \
         credentials stored in your SECRETS.txt file')
     parser.add_argument('-n', '--number', help='Number of pages of saved comments\
-        to download, defaults to 10 (one). Use `-n 0` to download all upvoted comments',
+        to download, defaults to 10 (one)',
                         required=False)
     parser.add_argument('-u', '--username', help='your username', required=True)
     parser.add_argument('-s', '--secrets-file', help='path to the SECRETS.txt file', required=False)
@@ -122,7 +110,7 @@ if __name__ == '__main__':
     args = vars(parser.parse_args())
     print args
     USERNAME = args['username']
-    NUM_PAGES = 1
+    NUM_PAGES = 10
     SLEEP_SECONDS = 2.0
     if args['secrets_file'] is not None:
         SECRETS_PATH = args['secrets-file']

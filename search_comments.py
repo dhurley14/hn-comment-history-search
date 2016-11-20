@@ -1,7 +1,5 @@
 """
-takes in arguments to search
-for comments made by author,
-pre-date, post-date, title, or
+takes in arguments to search for comments made by author or
 full text search
 """
 import argparse
