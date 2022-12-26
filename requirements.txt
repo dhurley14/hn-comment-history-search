@@ -10,5 +10,5 @@ pylint==1.6.4
 requests==2.12.1
 six==1.10.0
 urllib3==1.19.1
-wheel==0.24.0
+wheel==0.38.1
 wrapt==1.10.8
